@@ -1,0 +1,32 @@
+{
+  "name": "oshop-server",
+  "version": "1.0.0",
+  "description": "Server application for Organic shop",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codegagan/oshop-server.git"
+  },
+  "keywords": [
+    "rest",
+    "shopping",
+    "node",
+    "express",
+    "cart",
+    "ecommerce",
+    "mongodb"
+  ],
+  "author": "Gagandeep Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codegagan/oshop-server/issues"
+  },
+  "homepage": "https://github.com/codegagan/oshop-server#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
