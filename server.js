@@ -68,7 +68,7 @@ app.get('/api/users/:id', (req, res) => {
 app.post('/api/users', (req, res) => {
     console.log(req.body);
     doDbOperation(client => {
-        client.db(DB).collection('users').update({ email: req.body.email }, req.body, { upsert: true }).then(dbResponse => {
+        client.db(DB).collection('users').updateOne({ email: req.body.email },{$set: req.body} , { upsert: true }).then(dbResponse => {
             res.json({ rowsChanged: dbResponse.result.n });
         })
     });
