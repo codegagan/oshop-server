@@ -5,25 +5,29 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://gagan:gagan@gagan-affqi.mongodb.net/oshop";
 const DB = 'oshop';
+let dbClient;
+let db;
 
-function doDbOperation(operation) {
+const exitHandler = signal => {
+    console.log('Closing DB connection before exit with');
+    dbClient.close();
+    process.exit(signal);
+};
 
-    MongoClient.connect(uri, function (err, client) {
-        try {
-            if (err) {
-                console.log('Error while connecting to db', err);
-            } else {
-                console.log('Performing DB operation');
-                operation(client);
-            }
-        } catch (ex) {
-            console.log('Error while db operation', ex);
-        } finally {
-            client.close();
-        }
-    });
-}
+MongoClient.connect(uri)
+    .then(client => {
+        dbClient = client;
+        db = client.db(DB);
+        app.listen(80, () => console.log('Connected to DB and server is listening'));
+        //process.on('exit', exitHandler);
+        process.on('SIGINT', exitHandler);
+        process.on('SIGUSR1', exitHandler);
+        process.on('SIGUSR2', exitHandler);
+        process.on('uncaughtException', exitHandler);
+    })
+    .catch(err => console.log('Error while connecting to Db', err));
 
+// Middlewares
 app.options('*', (req, res) => {
     setCorsHeader(res);
     res.sendStatus(200);
@@ -39,6 +43,7 @@ function setCorsHeader(res) {
 app.use(express.static('oshop'));
 
 app.use(function (req, res, next) {
+    console.log("Request: ", req.method, req.url);
     if (req.header('content-type') === 'application/json') {
         setCorsHeader(res);
         next();
@@ -54,24 +59,34 @@ app.use(bodyParser.json({
     }
 }));
 
+// APIs
+
+// Users
 app.get('/api/users/:id', (req, res) => {
     console.log('userid', req.params.id);
-    doDbOperation(client =>{
-        client.db(DB).collection('users').findOne({providerId: req.params.id})
+    db.collection('users').findOne({ providerId: req.params.id })
         .then(user => res.json(user))
-        .catch(err=> console.log('Error while finding user in db', err));
-    }
-    );
+        .catch(err => console.log('Error while finding user in db', err));
 });
 
-// New user
+// Create or update user
 app.post('/api/users', (req, res) => {
     console.log(req.body);
-    doDbOperation(client => {
-        client.db(DB).collection('users').updateOne({ email: req.body.email },{$set: req.body} , { upsert: true }).then(dbResponse => {
-            res.json({ rowsChanged: dbResponse.result.n });
-        })
-    });
+    db.collection('users').updateOne({ email: req.body.email }, { $set: req.body }, { upsert: true })
+    .then(dbResponse => {
+        res.json({ rowsChanged: dbResponse.result.n });
+    })
 });
 
-app.listen(80, () => console.log('Server running'));
+// Categories
+app.get('/api/categories', (req, res) => {
+    let docs = db.collection('categories').find().project({_id: 0}).toArray()
+    .then(docs => res.json(docs))
+    .catch(err => res.status(500).send(err));
+});
+
+app.post('/api/products', (req, res) => {
+    db.collection('products').insertOne(req.body)
+    .then(result => res.json({rowsChanged: result.result.n}))
+    .catch(err => res.status(500).send(err));
+});
