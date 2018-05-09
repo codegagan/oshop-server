@@ -63,7 +63,6 @@ app.use(bodyParser.json({
 
 // Users
 app.get('/api/users/:id', (req, res) => {
-    console.log('userid', req.params.id);
     db.collection('users').findOne({ providerId: req.params.id })
         .then(user => res.json(user))
         .catch(err => console.log('Error while finding user in db', err));
@@ -71,7 +70,6 @@ app.get('/api/users/:id', (req, res) => {
 
 // Create or update user
 app.post('/api/users', (req, res) => {
-    console.log(req.body);
     db.collection('users').updateOne({ email: req.body.email }, { $set: req.body }, { upsert: true })
     .then(dbResponse => {
         res.json({ rowsChanged: dbResponse.result.n });
