@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
-const MongoClient = require('mongodb').MongoClient;
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 const uri = "mongodb+srv://gagan:gagan@gagan-affqi.mongodb.net/oshop";
 const DB = 'oshop';
 let dbClient;
@@ -71,20 +71,40 @@ app.get('/api/users/:id', (req, res) => {
 // Create or update user
 app.post('/api/users', (req, res) => {
     db.collection('users').updateOne({ email: req.body.email }, { $set: req.body }, { upsert: true })
-    .then(dbResponse => {
-        res.json({ rowsChanged: dbResponse.result.n });
-    })
+        .then(dbResponse => {
+            res.json({ rowsChanged: dbResponse.result.n });
+        })
 });
 
 // Categories
 app.get('/api/categories', (req, res) => {
-    let docs = db.collection('categories').find().project({_id: 0}).toArray()
-    .then(docs => res.json(docs))
-    .catch(err => res.status(500).send(err));
+    let docs = db.collection('categories').find().project({ _id: 0 }).toArray()
+        .then(docs => res.json(docs))
+        .catch(err => res.status(500).send(err));
 });
+
+// Products
 
 app.post('/api/products', (req, res) => {
     db.collection('products').insertOne(req.body)
-    .then(result => res.json({rowsChanged: result.result.n}))
-    .catch(err => res.status(500).send(err));
+        .then(result => res.json({ rowsChanged: result.result.n }))
+        .catch(err => res.status(500).send(err));
+});
+
+app.get('/api/products', (req, res) => {
+    db.collection('products').find().toArray()
+        .then(result => res.json(result))
+        .catch(err => res.status(500).send(err));
+});
+
+app.get('/api/products/:id', (req, res) => {
+    db.collection('products').findOne({ _id: new mongodb.ObjectId(req.params.id) })
+        .then(result => res.json(result))
+        .catch(err => res.status(500).send(err));
+});
+
+app.put('/api/products/:id', (req, res) => {
+    db.collection('products').updateOne({ _id: new mongodb.ObjectId(req.params.id) }, { $set: req.body })
+        .then(result => res.json({ rowsChanged: result.result.n }))
+        .catch(err => res.status(500).send(err));
 });
