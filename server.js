@@ -35,7 +35,7 @@ app.options('*', (req, res) => {
 
 function setCorsHeader(res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
     // res.setHeader('Access-Control-Allow-Credentials','true');
     res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
 }
@@ -107,4 +107,10 @@ app.put('/api/products/:id', (req, res) => {
     db.collection('products').updateOne({ _id: new mongodb.ObjectId(req.params.id) }, { $set: req.body })
         .then(result => res.json({ rowsChanged: result.result.n }))
         .catch(err => res.status(500).send(err));
+});
+
+app.delete('/api/products/:id', (req, res) => {
+    db.collection('products').deleteOne({_id: new mongodb.ObjectId(req.params.id)})
+    .then(result => res.json({rowsChanged: result.result.n}))
+    .catch(err => res.status(500).send(err));
 });
