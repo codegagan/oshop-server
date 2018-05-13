@@ -9,7 +9,7 @@ let dbClient;
 let db;
 
 const exitHandler = signal => {
-    console.log('Closing DB connection before exit with');
+    console.log('Closing DB connection before exit with', signal);
     dbClient.close();
     process.exit(signal);
 };
@@ -112,5 +112,29 @@ app.put('/api/products/:id', (req, res) => {
 app.delete('/api/products/:id', (req, res) => {
     db.collection('products').deleteOne({_id: new mongodb.ObjectId(req.params.id)})
     .then(result => res.json({rowsChanged: result.result.n}))
+    .catch(err => res.status(500).send(err));
+});
+
+// Shopping Cart
+
+app.post('/api/shopping-cart', (req, res) => {
+    console.log("req body", req.body);
+    let shoppingCart = {creationTime: new Date().getTime(), items: req.body.keys? [{...req.body, quantity: 1}] : [] };
+    console.log('creating shopping cart', JSON.stringify(shoppingCart));
+    db.collection('shopping-cart').insertOne(shoppingCart)
+        .then(result => res.json(shoppingCart))
+        .catch(err => res.status(500).send(err));
+});
+
+app.get('/api/shopping-cart/:id', (req, res) => {
+    db.collection('shopping-cart').findOne({ _id: new mongodb.ObjectId(req.params.id) })
+    .then(result => res.json(result))
+    .catch(err => res.status(500).send(err));
+});
+
+app.put('/api/shopping-cart/:id', (req, res) => {
+    delete req.body._id;
+    db.collection('shopping-cart').updateOne({ _id: new mongodb.ObjectId(req.params.id) }, { $set: req.body })
+    .then(result => res.json(req.body))
     .catch(err => res.status(500).send(err));
 });
