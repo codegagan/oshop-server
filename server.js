@@ -138,3 +138,17 @@ app.put('/api/shopping-cart/:id', (req, res) => {
     .then(result => res.json(req.body))
     .catch(err => res.status(500).send(err));
 });
+
+// Order
+
+app.post('/api/orders', (req, res) => {
+    db.collection('orders').insertOne(req.body)
+    .then(result => res.json(req.body))
+    .catch(err => res.status(500).send(err));
+});
+
+app.get('/api/orders', (req, res) => {
+    db.collection('orders').find({user: req.query.user}).toArray()
+    .then(result => res.json(result))
+    .catch(err => res.status(500).send(err));
+});
