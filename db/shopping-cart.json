@@ -1,0 +1,8 @@
+{"_id":{"$oid":"5af878d1ffe202641c6f5c9c"},"creationTime":{"$numberLong":"1526233297610"},"items":[{"product":{"_id":"5af48e7529724221788b81d7","title":"Brown bread","price":{"$numberInt":"45"},"category":"bread","url":"http://zazdraveto.bg/files/attachments/4/9899/1396.jpg"},"quantity":{"$numberInt":"1"}}]}
+{"_id":{"$oid":"5b003084efd6153174505409"},"creationTime":{"$numberLong":"1526739076418"},"items":[]}
+{"_id":{"$oid":"5b0069c4e8f68cea0068a2fe"},"creationTime":{"$numberLong":"1526753732868"},"items":[]}
+{"_id":{"$oid":"5b006a7be8f68cea0068a2ff"},"creationTime":{"$numberLong":"1526753915078"},"items":[]}
+{"_id":{"$oid":"5b006cece8f68cea0068a300"},"creationTime":{"$numberLong":"1526754540507"},"items":[]}
+{"_id":{"$oid":"5b006d27e8f68cea0068a301"},"creationTime":{"$numberLong":"1526754599448"},"items":[]}
+{"_id":{"$oid":"5b007a15e8f68cea0068a302"},"creationTime":{"$numberLong":"1526757909079"},"items":[]}
+{"_id":{"$oid":"5b007fa8e8f68cea0068a303"},"creationTime":{"$numberLong":"1526759336358"},"items":[]}

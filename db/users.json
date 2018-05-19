@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5aeb5dd37406d6c83a7dfb0e"},"email":"codegagan@gmail.com","name":"Gagandeep Singh","provider":"google","providerId":"117722285808663870430","isAdmin":true}
+{"_id":{"$oid":"5aebff9c7406d6c83ac0bb9f"},"email":"snehakulkarni094@gmail.com","name":"Sneha Kulkarni","provider":"google","providerId":"115890218905801913039"}
+{"_id":{"$oid":"5aec00c17406d6c83ac118b8"},"email":"natrayanrenuga@gmail.com","name":"Natrayan A","provider":"google","providerId":"101660372095651616208"}
+{"_id":{"$oid":"5aec02187406d6c83ac187b8"},"email":"jan.subs@gmail.com","name":"Jan Subs","provider":"google","providerId":"106881605643342595329"}
+{"_id":{"$oid":"5aee0ce37406d6c83ab4d438"},"email":"amanpreet6309108@gmail.com","name":"amanpreet kaur","provider":"google","providerId":"104022421564270650779"}

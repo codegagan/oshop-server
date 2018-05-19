@@ -1,0 +1,21 @@
+{"_id":{"$oid":"5af48e7529724221788b81d7"},"title":"Brown bread","price":{"$numberInt":"45"},"category":"bread","url":"http://zazdraveto.bg/files/attachments/4/9899/1396.jpg"}
+{"_id":{"$oid":"5af4b5c8e9305a15e4b6d2d6"},"title":"Milk","price":{"$numberInt":"52"},"category":"dairy","url":"http://s0.geograph.org.uk/geophotos/01/20/66/1206685_d3f15e83.jpg"}
+{"_id":{"$oid":"5af5bb9f03dc635918308459"},"category":"vegetables","url":"http://www.publicdomainpictures.net/pictures/170000/velka/spinach-leaves-1461774375kTU.jpg","price":{"$numberDouble":"2.5"},"title":"Spinach"}
+{"_id":{"$oid":"5af5bbd403dc63591830845a"},"category":"bread","url":"https://static.pexels.com/photos/2434/bread-food-healthy-breakfast.jpg","price":{"$numberInt":"3"},"title":"Freshly Baked Bread"}
+{"_id":{"$oid":"5af5bbe103dc63591830845b"},"category":"fruits","url":"http://www.picserver.org/pictures/avocado01-lg.jpg","price":{"$numberDouble":"1.75"},"title":"Avacado"}
+{"_id":{"$oid":"5af5bbee03dc63591830845c"},"category":"vegetables","url":"https://static.pexels.com/photos/8390/food-wood-tomatoes.jpg","price":{"$numberDouble":"2.5"},"title":"Tomato"}
+{"_id":{"$oid":"5af5bc0303dc63591830845d"},"category":"vegetables","url":"https://upload.wikimedia.org/wikipedia/commons/7/7f/Lettuce_Mini_Heads_%287331119710%29.jpg","price":{"$numberInt":"1"},"title":"Lettuce"}
+{"_id":{"$oid":"5af5bc1103dc63591830845e"},"category":"vegetables","url":"https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Cauliflowers_-_20051021.jpg/1280px-Cauliflowers_-_20051021.jpg","price":{"$numberDouble":"1.75"},"title":"Cauliflower"}
+{"_id":{"$oid":"5af5bc2003dc63591830845f"},"category":"fruits","url":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Bananas.jpg/1024px-Bananas.jpg","price":{"$numberDouble":"1.25"},"title":"Banana"}
+{"_id":{"$oid":"5af5bc2b03dc635918308460"},"category":"fruits","url":"https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg","price":{"$numberDouble":"1.7"},"title":"Orange"}
+{"_id":{"$oid":"5af5bc3803dc635918308461"},"category":"fruits","url":"https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg","price":{"$numberInt":"2"},"title":"Apple"}
+{"_id":{"$oid":"5af5bc4403dc635918308462"},"category":"fruits","url":"https://upload.wikimedia.org/wikipedia/commons/3/36/Kyoho-grape.jpg","price":{"$numberInt":"2"},"title":"Grape"}
+{"_id":{"$oid":"5af5bc5303dc635918308463"},"category":"fruits","url":"https://upload.wikimedia.org/wikipedia/commons/9/9e/Autumn_Red_peaches.jpg","price":{"$numberInt":"2"},"title":"Peach"}
+{"_id":{"$oid":"5af5bc6103dc635918308464"},"category":"seasonings","url":"https://upload.wikimedia.org/wikipedia/commons/8/8c/Cinnamon-other.jpg","price":{"$numberDouble":"0.5"},"title":"Cinnamon Sticks"}
+{"_id":{"$oid":"5af5bc7003dc635918308465"},"category":"seasonings","url":"https://upload.wikimedia.org/wikipedia/commons/4/48/Saffron_Crop.JPG","price":{"$numberInt":"3"},"title":"Saffron"}
+{"_id":{"$oid":"5af5bc7c03dc635918308466"},"category":"seasonings","url":"http://maxpixel.freegreatpicture.com/static/photo/1x/Seasoning-Powder-Curry-Spice-Ingredient-Turmeric-2344157.jpg","price":{"$numberDouble":"0.75"},"title":"Ground Turmeric"}
+{"_id":{"$oid":"5af5bc8903dc635918308467"},"category":"seasonings","url":"http://maxpixel.freegreatpicture.com/static/photo/1x/Ingredient-Herb-Seasoning-Seeds-Food-Coriander-390015.jpg","price":{"$numberDouble":"0.5"},"title":"Coriander Seeds"}
+{"_id":{"$oid":"5af5bc9e03dc635918308468"},"category":"bread","url":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Fabrication_du_lavash_%C3%A0_Noravank_%286%29.jpg/1280px-Fabrication_du_lavash_%C3%A0_Noravank_%286%29.jpg","price":{"$numberDouble":"1.25"},"title":"Lavash Bread"}
+{"_id":{"$oid":"5af5bcab03dc635918308469"},"category":"bread","url":"https://upload.wikimedia.org/wikipedia/commons/1/1d/Bagel-Plain-Alt.jpg","price":{"$numberInt":"1"},"title":"Bagel Bread"}
+{"_id":{"$oid":"5af5bcb903dc63591830846a"},"category":"fruits","url":"https://upload.wikimedia.org/wikipedia/commons/e/e1/Strawberries.jpg","price":{"$numberDouble":"1.95"},"title":"Strawberry"}
+{"_id":{"$oid":"5af5bcc603dc63591830846b"},"category":"bread","url":"https://static.pexels.com/photos/416607/pexels-photo-416607.jpeg","price":{"$numberDouble":"1.25"},"title":"Baguette Bread"}

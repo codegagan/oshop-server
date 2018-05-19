@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5aee1d4666b08215e8a3dcad"},"name":"Bread","key":"bread"}
+{"_id":{"$oid":"5aee1dad66b08215e8a3dcae"},"key":"dairy","name":"Dairy"}
+{"_id":{"$oid":"5aee1dd066b08215e8a3dcaf"},"name":"Fruits","key":"fruits"}
+{"_id":{"$oid":"5aee1e8966b08215e8a3dcb0"},"key":"seasonings","name":"Seasonings and Spices"}
+{"_id":{"$oid":"5aee1eb266b08215e8a3dcb1"},"key":"vegetables","name":"Vegetables"}
