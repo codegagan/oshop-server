@@ -3,13 +3,15 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
-const uri = "mongodb+srv://gagan:gagan@gagan-affqi.mongodb.net/oshop";
+const uri = process.env.mongoUri;
 const DB = 'oshop';
+const originsWhitelist = ['http://oshop.codegagan.com', 'http://codegagan.surge.sh', 'http://codegagan.com', 'http://localhost:4200'];
+const oshopPort = process.env.oshopPort;
 let dbClient;
 let db;
 
 const exitHandler = signal => {
-    console.log('Closing DB connection before exit with', signal);
+    log('Got signal ' + signal + ', closing DB connection and Exiting')
     dbClient.close();
     process.exit(signal);
 };
@@ -18,7 +20,7 @@ MongoClient.connect(uri)
     .then(client => {
         dbClient = client;
         db = client.db(DB);
-        app.listen(80, () => console.log('Connected to DB and server is listening'));
+        app.listen(oshopPort, () => log('Connected to DB and server is listening on port' + oshopPort));
         //process.on('exit', exitHandler);
         process.on('SIGINT', exitHandler);
         process.on('SIGUSR1', exitHandler);
@@ -29,25 +31,27 @@ MongoClient.connect(uri)
 
 // Middlewares
 app.options('*', (req, res) => {
-    setCorsHeader(res);
+    log('Preflight from: '+ req.headers.origin);
+    setCorsHeader(req, res);
     res.sendStatus(200);
 })
 
-function setCorsHeader(res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
-    // res.setHeader('Access-Control-Allow-Credentials','true');
-    res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+function setCorsHeader(req, res) {
+    if (originsWhitelist.indexOf(req.headers.origin) > -1) {
+        res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+        res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+        // res.setHeader('Access-Control-Allow-Credentials','true');
+        res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, x-codegagan');
+    }
 }
 
-app.use(express.static('oshop'));
-
 app.use(function (req, res, next) {
-    console.log("Request: ", req.method, req.url);
-    if (req.header('content-type') === 'application/json') {
-        setCorsHeader(res);
+    log("Request: " + req.method + req.url + req.headers.origin);
+    if (req.header('content-type') === 'application/json' && req.header('x-codegagan') === 'gagan') {
+        setCorsHeader(req, res);
         next();
     } else {
+        log('Bad request');
         res.sendStatus(400);
     }
 })
@@ -110,17 +114,15 @@ app.put('/api/products/:id', (req, res) => {
 });
 
 app.delete('/api/products/:id', (req, res) => {
-    db.collection('products').deleteOne({_id: new mongodb.ObjectId(req.params.id)})
-    .then(result => res.json({rowsChanged: result.result.n}))
-    .catch(err => res.status(500).send(err));
+    db.collection('products').deleteOne({ _id: new mongodb.ObjectId(req.params.id) })
+        .then(result => res.json({ rowsChanged: result.result.n }))
+        .catch(err => res.status(500).send(err));
 });
 
 // Shopping Cart
 
 app.post('/api/shopping-cart', (req, res) => {
-    console.log("req body", req.body);
-    let shoppingCart = {creationTime: new Date().getTime(), items: req.body.keys? [{...req.body, quantity: 1}] : [] };
-    console.log('creating shopping cart', JSON.stringify(shoppingCart));
+    let shoppingCart = { creationTime: new Date().getTime(), items: req.body.keys ? [{ ...req.body, quantity: 1 }] : [] };
     db.collection('shopping-cart').insertOne(shoppingCart)
         .then(result => res.json(shoppingCart))
         .catch(err => res.status(500).send(err));
@@ -128,27 +130,39 @@ app.post('/api/shopping-cart', (req, res) => {
 
 app.get('/api/shopping-cart/:id', (req, res) => {
     db.collection('shopping-cart').findOne({ _id: new mongodb.ObjectId(req.params.id) })
-    .then(result => res.json(result))
-    .catch(err => res.status(500).send(err));
+        .then(result => res.json(result))
+        .catch(err => res.status(500).send(err));
 });
 
 app.put('/api/shopping-cart/:id', (req, res) => {
     delete req.body._id;
     db.collection('shopping-cart').updateOne({ _id: new mongodb.ObjectId(req.params.id) }, { $set: req.body })
-    .then(result => res.json(req.body))
-    .catch(err => res.status(500).send(err));
+        .then(result => res.json(req.body))
+        .catch(err => res.status(500).send(err));
 });
 
 // Order
 
 app.post('/api/orders', (req, res) => {
     db.collection('orders').insertOne(req.body)
-    .then(result => res.json(req.body))
-    .catch(err => res.status(500).send(err));
+        .then(result => res.json(req.body))
+        .catch(err => res.status(500).send(err));
 });
 
 app.get('/api/orders', (req, res) => {
-    db.collection('orders').find({user: req.query.user}).toArray()
-    .then(result => res.json(result))
-    .catch(err => res.status(500).send(err));
+    db.collection('orders').find({ user: req.query.user }).toArray()
+        .then(result => res.json(result))
+        .catch(err => res.status(500).send(err));
 });
+
+//app.use(express.static('oshop'));
+
+// For angular paths
+// app.get('/*', function(req, res) {
+//     res.sendFile(path.join(__dirname + '/oshop/index.html'));
+// });
+
+// Utility functions
+function log(line) {
+    db.collection('logs').insertOne({time: new Date().toLocaleString(), log: line});
+}
