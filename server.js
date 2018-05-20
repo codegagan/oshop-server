@@ -5,7 +5,7 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const uri = process.env.mongoUri;
 const DB = 'oshop';
-const originsWhitelist = ['http://oshop.codegagan.com', 'http://codegagan.surge.sh', 'http://codegagan.com', 'http://localhost:4200'];
+const originsWhitelist = ['http://oshop.codegagan.com', 'http://codegagan.surge.sh', 'http://codegagan.com'];
 const oshopPort = process.env.oshopPort;
 let dbClient;
 let db;
