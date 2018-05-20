@@ -69,7 +69,7 @@ app.use(bodyParser.json({
 app.get('/api/users/:id', (req, res) => {
     db.collection('users').findOne({ providerId: req.params.id })
         .then(user => res.json(user))
-        .catch(err => console.log('Error while finding user in db', err));
+        .catch(err => log('Error while finding user in db ' + err));
 });
 
 // Create or update user
