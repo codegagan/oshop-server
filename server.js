@@ -41,13 +41,13 @@ function setCorsHeader(req, res) {
         res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
         res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
         // res.setHeader('Access-Control-Allow-Credentials','true');
-        res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, x-codegagan');
+        res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
     }
 }
 
 app.use(function (req, res, next) {
     log("Request: " + req.method + req.url + req.headers.origin);
-    if (req.header('content-type') === 'application/json' && req.header('x-codegagan') === 'gagan') {
+    if (req.header('content-type') === 'application/json') {
         setCorsHeader(req, res);
         next();
     } else {
