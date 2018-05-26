@@ -46,12 +46,12 @@ function setCorsHeader(req, res) {
 }
 
 app.use(function (req, res, next) {
-    log("Request: " + req.method + req.url + req.headers.origin);
+    log(`Request:  ${req.method} ${req.url} ${req.headers.origin}`);
     if (req.header('content-type') === 'application/json') {
         setCorsHeader(req, res);
         next();
     } else {
-        log('Bad request');
+        log(`Bad request ${req.hostname} ${req.ip}`);
         res.sendStatus(400);
     }
 })
