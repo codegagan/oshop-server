@@ -29,6 +29,11 @@ MongoClient.connect(uri)
     })
     .catch(err => console.log('Error while connecting to Db', err));
 
+
+// Security
+
+app.disable('x-powered-by');
+
 // Middlewares
 app.options('*', (req, res) => {
     log('Preflight from: '+ req.headers.origin);
